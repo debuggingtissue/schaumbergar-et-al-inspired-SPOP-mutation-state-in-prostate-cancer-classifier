@@ -1,7 +1,8 @@
 from pathlib import Path
 from utils.dataset_generator import *
+from utils.dataset_splitters import *
 from utils.constants import *
-import torch
+from matplotlib import pyplot
 
 if __name__ == '__main__':
     CURRENT_PATH = Path.cwd()
@@ -17,16 +18,28 @@ if __name__ == '__main__':
     train_set, validation_set, test_set = split_into_train_validation_test_sets(full_dataset, TRAIN_PROPORTION,
                                                                                 VALIDATION_PROPORTION, TEST_PROPORTION)
 
+    x_train, y_train = split_set_into_examples_and_labels(train_set)
+    x_validation, y_validation = split_set_into_examples_and_labels(validation_set)
+    x_test, y_test = split_set_into_examples_and_labels(test_set)
 
-    print(len(full_dataset))
-    print(len(train_set))
-    print(len(validation_set))
-    print(len(test_set))
+    print(y_train)
+    print(y_validation)
+    print(y_test)
+
+    # print(len(full_dataset))
+    # print(len(train_set))
+    # print(len(validation_set))
+    # print(len(test_set))
+
+    # pyplot.imshow(test_set[5][0].reshape((512, 512, 3)), cmap="Blues")
+    # pyplot.show()
 
 
 
-    # print(SPOP_FALSE_DATA_PATH)
-    # print(SPOP_TRUE_DATA_PATH)
+
+
+
+
 
 # PATH = DATA_PATH / "mnist"
 #
