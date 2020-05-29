@@ -4,9 +4,10 @@ import torch
 import time
 import copy
 
-def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_sizes, device, num_epochs=25):
-    since = time.time()
 
+def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_sizes, device,
+                validation_accuracy_threshold, num_epochs=25):
+    since = time.time()
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
 
@@ -20,7 +21,7 @@ def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_si
                 scheduler.step()
                 model.train()  # Set model to training mode
             else:
-                model.eval()   # Set model to evaluate mode
+                model.eval()  # Set model to evaluate mode
 
             running_loss = 0.0
             running_corrects = 0
@@ -59,6 +60,11 @@ def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_si
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
+                if epoch_acc
+
+                    with 10000 − 100000 training
+                    iterations
+
 
         print()
 
