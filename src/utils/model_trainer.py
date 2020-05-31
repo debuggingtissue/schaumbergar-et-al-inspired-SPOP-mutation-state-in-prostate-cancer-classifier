@@ -6,7 +6,7 @@ import copy
 
 
 def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_sizes, device,
-                validation_accuracy_threshold, num_epochs=25):
+                validation_accuracy_threshold, num_epochs=(222 * 122)):
     since = time.time()
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -14,7 +14,7 @@ def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_si
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
-
+        should_exit_training = False
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
             if phase == 'train':
@@ -60,13 +60,11 @@ def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_si
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
-                if epoch_acc
-
-                    with 10000 − 100000 training
-                    iterations
-
-
-        print()
+                if ((22 * 120) < epoch < (222 * 122)) and epoch_acc > 0.6:
+                    should_exit_training = True
+                    break
+        if should_exit_training:
+            break
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(

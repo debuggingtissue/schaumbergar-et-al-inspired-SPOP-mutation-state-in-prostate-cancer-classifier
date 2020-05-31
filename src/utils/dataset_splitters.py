@@ -25,3 +25,22 @@ def split_set_into_examples_and_labels(dataset):
         all_labels.append(data_tuple[1])
 
     return all_examples, all_labels
+
+def monte_carlo_draw_train_and_validation_sets(path_train_images, meta_ensamble_index, ensamble_index):
+
+
+    # CURRENT_PATH = Path.cwd()
+    # SPOP_FALSE_DATA_PATH = CURRENT_PATH.parent / "data" / SPOP_FALSE
+    # SPOP_TRUE_DATA_PATH = CURRENT_PATH.parent / "data" / SPOP_TRUE
+    #
+    # TRAIN_PROPORTION = 0.7
+    # VALIDATION_PROPORTION = 0.1
+    # TEST_PROPORTION = 0.2
+
+
+    #Fetch image files into array from path_train_images, one for each class
+    #Create folder with meta_ensamble_index and ensamble_index in name
+    #Pop desired amount of image files to train and val arrays
+    #copy the images to new location
+    #return two sets
+

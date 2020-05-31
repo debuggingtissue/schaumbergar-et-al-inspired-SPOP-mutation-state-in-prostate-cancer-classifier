@@ -4,23 +4,24 @@
 from __future__ import print_function, division
 
 import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.optim import lr_scheduler
+from torchvision import datasets, models, transforms
 from pathlib import Path
-from utils import dataset_generator, data_loader_generator, ensemble_manager
+from utils import ensemble_manager
 
 if __name__ == '__main__':
-    CURRENT_PATH = Path.cwd()
-    DATA_PATH = CURRENT_PATH.parent / "data" / "splits"
-    TRAIN = "train"
-    VALIDATION = "val"
-    fold_names = [TRAIN, VALIDATION]
-
-    image_datasets = dataset_generator.generate_transformed_train_and_validation_image_datasets(DATA_PATH, fold_names)
-    data_loaders = data_loader_generator.generate_data_loaders_from_image_datasets(image_datasets, fold_names)
-    dataset_sizes = {x: len(image_datasets[x]) for x in fold_names}
-    class_names = image_datasets[TRAIN].classes
-    output_classes_count = len(class_names)
-
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+    CURRENT_PATH = Path.cwd()
+    ORIGIN_IMAGE_DIRECTORY_PATH = CURRENT_PATH.parent / "data" / "origin"
+
     ensambles_count = 2
-    ensembles = ensemble_manager.generate_ensembles(ensambles_count)
+    model_count_in_each_ensemble = 11
+    validation_accuracy_requirement_for_each_model = 0.6
+
+    ensembles = ensemble_manager.generate_ensembles(ensambles_count, model_count_in_each_ensemble,
+                                                    validation_accuracy_requirement_for_each_model,
+                                                    ORIGIN_IMAGE_DIRECTORY_PATH,
+                                                    device)
