@@ -9,13 +9,10 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 from torchvision import datasets, models, transforms
 from pathlib import Path
-from utils import ensemble_manager
+from utils import ensemble_manager, path_utils
 
 if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-    CURRENT_PATH = Path.cwd()
-    ORIGIN_IMAGE_DIRECTORY_PATH = CURRENT_PATH.parent / "data" / "origin"
 
     ensambles_count = 2
     model_count_in_each_ensemble = 11
@@ -23,5 +20,4 @@ if __name__ == '__main__':
 
     ensembles = ensemble_manager.generate_ensembles(ensambles_count, model_count_in_each_ensemble,
                                                     validation_accuracy_requirement_for_each_model,
-                                                    ORIGIN_IMAGE_DIRECTORY_PATH,
                                                     device)
