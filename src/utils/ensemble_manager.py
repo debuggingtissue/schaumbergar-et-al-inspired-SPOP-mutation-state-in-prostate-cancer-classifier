@@ -14,13 +14,13 @@ def generate_ensembles(ensemble_count, model_count_in_each_ensemble,
 
         for model_index in range(model_count_in_each_ensemble):
             monte_carlo_drawn_images_root_path = dataset_splitters.monte_carlo_draw_balanced_train_and_validation_sets(ensemble_index, model_index, 2, 1)
-# image_datasets = dataset_generator.generate_transformed_train_and_validation_image_datasets(monte_carlo_drawn_images_root_path)
-            # data_loaders = data_loader_generator.generate_data_loaders_from_image_datasets(image_datasets)
-            #
-            # dataset_sizes = {x: len(image_datasets[x]) for x in [constants.TRAIN, constants.VALIDATION]}
-            # class_names = image_datasets[constants.TRAIN].classes
-            # output_classes_count = len(class_names)
-            #
+            image_datasets = dataset_generator.generate_transformed_train_and_validation_image_datasets(monte_carlo_drawn_images_root_path)
+            data_loaders = data_loader_generator.generate_data_loaders_from_image_datasets(image_datasets)
+
+            dataset_sizes = {x: len(image_datasets[x]) for x in [constants.TRAIN, constants.VALIDATION]}
+            class_names = image_datasets[constants.TRAIN].classes
+            output_classes_count = len(class_names)
+
             # pretrained_model_optimized_for_data = model_manager.pretrained_model_optimized_for_data(output_classes_count)
             # criterion = nn.CrossEntropyLoss()
             #

@@ -117,4 +117,4 @@ def monte_carlo_draw_balanced_train_and_validation_sets(meta_ensemble_index,
                  str(training_image_SPOP_false_path.resolve()).split('/')[
                      -1])
 
-    # return two sets
+    return monte_carlo_split_path

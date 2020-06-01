@@ -43,7 +43,7 @@ def create_image_dataset_from_image_data_paths(image_data_paths):
 # For data augmentation, the 800x800px images at
 # high magnification were trimmed to the centermost 512x512px ===== DONE IN DATA AQUASITION PART
 # in 6 degree rotations ==== DONE IN , scaled to 256x256px, flipped and unflipped ==== DONE but WTF, then randomly cropped to 224x224 within Caffe [22]
-def generate_transformed_train_and_validation_image_datasets(image_data_path, fold_names):
+def generate_transformed_train_and_validation_image_datasets(image_data_path):
     data_transforms = {
         'train': transforms.Compose([
             transforms.RandomRotation((0, 360)),
@@ -61,8 +61,9 @@ def generate_transformed_train_and_validation_image_datasets(image_data_path, fo
         ]),
     }
 
+    print(image_data_path)
     image_datasets = {x: datasets.ImageFolder(os.path.join(image_data_path, x),
                                               data_transforms[x])
-                      for x in fold_names}
+                      for x in [constants.TRAIN, constants.VALIDATION]}
 
     return image_datasets
