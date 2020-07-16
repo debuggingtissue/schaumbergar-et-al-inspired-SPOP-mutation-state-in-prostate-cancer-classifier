@@ -1,8 +1,40 @@
 from __future__ import print_function, division
 
-import torch
 import time
 import copy
+from fastai.vision import *
+from utils import dataset_splitters, constants, transform_definitions_generator
+
+
+def train_model_in_ensamble(ensemble_index, model_index, data_manager):
+    monte_carlo_drawn_images_root_path = dataset_splitters.monte_carlo_draw_balanced_train_and_validation_sets(
+        ensemble_index, model_index, 2, 1)
+    transforms = transform_definitions_generator.generate_simple_fastai_transformations_for_train_and_validation_image_datasets()
+
+    data = data_manager.generate_data_bunch_from_path(monte_carlo_drawn_images_root_path, transforms,constants.TRAIN_AND_VALIDATION_DATA_BUNCH)
+
+    data.show_batch(3)
+    learn = cnn_learner(data, models.resnet34, metrics=error_rate)
+    learn.fit_one_cycle(1)
+
+    stage_1_save_name = f"ensemble_{ensemble_index}_model_{model_index}_stage_1"
+    learn.save(stage_1_save_name)
+    learn.unfreeze()
+    # learn.lr_find(start_lr=1e-5, end_lr=1e-1)
+    # learn.recorder.plot()
+    plt.show()
+
+    learn.fit_one_cycle(1, max_lr=slice(3e-5, 3e-4))
+    stage_2_save_name = f"ensemble_{ensemble_index}_model_{model_index}_stage_2"
+    learn.save(stage_2_save_name)
+
+    return stage_2_save_name
+
+    # learn.load(stage_2_save_name);
+    # interp = ClassificationInterpretation.from_learner(learn)
+    # interp.plot_confusion_matrix()
+    # plt.show()
+
 
 
 def train_model(model, criterion, optimizer, scheduler, data_loaders, dataset_sizes, device,

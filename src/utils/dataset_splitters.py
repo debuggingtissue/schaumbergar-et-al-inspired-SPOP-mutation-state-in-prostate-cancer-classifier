@@ -1,5 +1,5 @@
-import torch
-from utils import path_utils, constants, data_paths
+from utils import constants, data_paths
+from lagacy import path_utils
 import random
 import pathlib
 from shutil import copyfile
@@ -74,24 +74,27 @@ def monte_carlo_draw_balanced_train_and_validation_sets(meta_ensemble_index,
     unique_monte_carlo_split_directory = "meta_ensemble_index_" + str(meta_ensemble_index) + "_ensemble_index_" + str(
         ensemble_index)
     monte_carlo_split_path = splits_data_path / unique_monte_carlo_split_directory
+
+    if monte_carlo_split_path.is_dir():
+        return monte_carlo_split_path
     monte_carlo_split_path.mkdir(parents=True, exist_ok=True)
 
     monte_carlo_split_train_path = splits_data_path / unique_monte_carlo_split_directory / constants.TRAIN
     monte_carlo_split_train_path.mkdir(parents=True, exist_ok=True)
 
-    monte_carlo_split_train_SPOP_true_path = splits_data_path / unique_monte_carlo_split_directory / constants.TRAIN / constants.SPOP_TRUE
+    monte_carlo_split_train_SPOP_true_path = splits_data_path / unique_monte_carlo_split_directory / constants.TRAIN / constants.SPOP_MUTATED
     monte_carlo_split_train_SPOP_true_path.mkdir(parents=True, exist_ok=True)
 
-    monte_carlo_split_train_SPOP_false_path = splits_data_path / unique_monte_carlo_split_directory / constants.TRAIN / constants.SPOP_FALSE
+    monte_carlo_split_train_SPOP_false_path = splits_data_path / unique_monte_carlo_split_directory / constants.TRAIN / constants.SPOP_NOT_MUTATED
     monte_carlo_split_train_SPOP_false_path.mkdir(parents=True, exist_ok=True)
 
     monte_carlo_split_validation_path = splits_data_path / unique_monte_carlo_split_directory / constants.VALIDATION
     monte_carlo_split_validation_path.mkdir(parents=True, exist_ok=True)
 
-    monte_carlo_split_validation_SPOP_true_path = splits_data_path / unique_monte_carlo_split_directory / constants.VALIDATION / constants.SPOP_TRUE
+    monte_carlo_split_validation_SPOP_true_path = splits_data_path / unique_monte_carlo_split_directory / constants.VALIDATION / constants.SPOP_MUTATED
     monte_carlo_split_validation_SPOP_true_path.mkdir(parents=True, exist_ok=True)
 
-    monte_carlo_split_validation_SPOP_false_path = splits_data_path / unique_monte_carlo_split_directory / constants.VALIDATION / constants.SPOP_FALSE
+    monte_carlo_split_validation_SPOP_false_path = splits_data_path / unique_monte_carlo_split_directory / constants.VALIDATION / constants.SPOP_NOT_MUTATED
     monte_carlo_split_validation_SPOP_false_path.mkdir(parents=True, exist_ok=True)
 
     # copy the image paths to new location

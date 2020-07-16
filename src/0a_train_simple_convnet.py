@@ -1,8 +1,6 @@
 from pathlib import Path
-from utils.dataset_generator import *
-from utils.dataset_splitters import *
+from lagacy.dataset_generator import *
 from utils.constants import *
-from matplotlib import pyplot
 from torch import optim
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
@@ -10,7 +8,6 @@ from torch.utils.data import DataLoader
 from torch import nn
 import torch.nn.functional as F
 
-from torchvision.models import resnet50
 
 class Mnist_CNN(nn.Module):
     def __init__(self):
@@ -113,8 +110,8 @@ def get_data(train_ds, valid_ds, test_ds, bs):
 
 if __name__ == '__main__':
     CURRENT_PATH = Path.cwd()
-    SPOP_FALSE_DATA_PATH = CURRENT_PATH.parent / "data" / SPOP_FALSE
-    SPOP_TRUE_DATA_PATH = CURRENT_PATH.parent / "data" / SPOP_TRUE
+    SPOP_FALSE_DATA_PATH = CURRENT_PATH.parent / "data" / SPOP_NOT_MUTATED
+    SPOP_TRUE_DATA_PATH = CURRENT_PATH.parent / "data" / SPOP_MUTATED
 
     TRAIN_PROPORTION = 0.7
     VALIDATION_PROPORTION = 0.1
