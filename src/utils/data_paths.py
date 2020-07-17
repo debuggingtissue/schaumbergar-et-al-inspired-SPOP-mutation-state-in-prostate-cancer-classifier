@@ -7,6 +7,6 @@ SPOP_TRUE_ORIGIN_DATA_PATH = CURRENT_PATH.parent / "data" / "origin" / constants
 SPOP_FALSE_ORIGIN_DATA_PATH = CURRENT_PATH.parent / "data" / "origin" / constants.SPOP_NOT_MUTATED
 
 
-SPLITS_DATA_PATH = CURRENT_PATH.parent / "data" / "splits"
+ENSEMBLES_DATA_PATH = CURRENT_PATH.parent / "data" / "ensembles"
 TEST_DATA_PATH = CURRENT_PATH.parent / "data" / "test"
 

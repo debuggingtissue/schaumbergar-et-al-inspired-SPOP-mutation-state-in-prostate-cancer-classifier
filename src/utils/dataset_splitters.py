@@ -68,10 +68,10 @@ def monte_carlo_draw_balanced_train_and_validation_sets(meta_ensemble_index,
     # print(spop_false_validation_set)
 
     # Create folder with meta_ensamble_index and ensamble_index in name
-    splits_data_path = pathlib.Path(data_paths.SPLITS_DATA_PATH)
+    splits_data_path = pathlib.Path(data_paths.ENSEMBLES_DATA_PATH)
     splits_data_path.mkdir(parents=True, exist_ok=True)
 
-    unique_monte_carlo_split_directory = "meta_ensemble_index_" + str(meta_ensemble_index) + "_ensemble_index_" + str(
+    unique_monte_carlo_split_directory = "ensemble_" + str(meta_ensemble_index) + "_model_" + str(
         ensemble_index)
     monte_carlo_split_path = splits_data_path / unique_monte_carlo_split_directory
 

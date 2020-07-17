@@ -11,8 +11,8 @@ def train_model_in_ensamble(ensemble_index, model_index, data_manager):
         ensemble_index, model_index, 2, 1)
     transforms = transform_definitions_generator.generate_simple_fastai_transformations_for_train_and_validation_image_datasets()
 
-    data = data_manager.generate_data_bunch_from_path(monte_carlo_drawn_images_root_path, transforms,constants.TRAIN_AND_VALIDATION_DATA_BUNCH)
-
+    data = data_manager.generate_data_bunch_from_path(monte_carlo_drawn_images_root_path)
+    print(monte_carlo_drawn_images_root_path)
     data.show_batch(3)
     learn = cnn_learner(data, models.resnet34, metrics=error_rate)
     learn.fit_one_cycle(1)
@@ -27,8 +27,11 @@ def train_model_in_ensamble(ensemble_index, model_index, data_manager):
     learn.fit_one_cycle(1, max_lr=slice(3e-5, 3e-4))
     stage_2_save_name = f"ensemble_{ensemble_index}_model_{model_index}_stage_2"
     learn.save(stage_2_save_name)
+    print("Model path")
+    print(learn.model_dir)
+    learn.export()
 
-    return stage_2_save_name
+    return monte_carlo_drawn_images_root_path
 
     # learn.load(stage_2_save_name);
     # interp = ClassificationInterpretation.from_learner(learn)
